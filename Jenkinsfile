@@ -10,13 +10,14 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh '''sh /var/lib/jenkins/filesystem.sh'''
+
+                 mvn package
             }
         }
         stage('Post Build') {
             steps {
                 echo "Build Successfully Completed"
-                deploy adapters: [tomcat8(credentialsId: 'tomcatuser', path: '', url: 'http://192.168.146.131:8081')], contextPath: '/Calendar', war: '**/*.war'
+                java -cp target/my-app-1.0-SNAPSHOT.jar com.mycompany.app.App
             }
         }
     }
