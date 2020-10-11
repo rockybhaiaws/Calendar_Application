@@ -11,12 +11,13 @@ pipeline {
         stage('Build') {
             steps {
 
-                 mvn package
+                 sh '''sh /var/lib/jenkins/test.sh'''
             }
         }
         stage('Post Build') {
             steps {
                 echo "Build Successfully Completed"
+                java -version
                 java -cp target/my-app-1.0-SNAPSHOT.jar com.mycompany.app.App
             }
         }
